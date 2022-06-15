@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Faker\Factory;
+use App\Models\User;
+use App\Models\Question;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,5 +23,12 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        User::factory()->times(3)->create()->each(function($u){
+
+            $u->questions()->saveMany(Question::factory()->times(rand(1,5))->make());
+
+        });
+        //Question::factory()->times(3)->create();
     }
 }
