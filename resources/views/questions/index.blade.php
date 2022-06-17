@@ -8,6 +8,8 @@
             <div class="card">
                 <div class="card-header">
 
+                    @include('layouts._messeges')
+
                     <div class="d-flex align-items-center">
 
                        <h2>All Questions</h2>

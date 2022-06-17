@@ -12,7 +12,7 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillabl = ['title','body'];
+    protected $fillable = ['title','body'];
 
     public function user(){
 
