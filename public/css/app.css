@@ -10870,9 +10870,6 @@ video {
 .m-0 {
   margin: 0px;
 }
-.m-3 {
-  margin: 0.75rem;
-}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -10909,6 +10906,9 @@ video {
 }
 .mb-0 {
   margin-bottom: 0px;
+}
+.ml-auto {
+  margin-left: auto;
 }
 .mb-2 {
   margin-bottom: 0.5rem;
