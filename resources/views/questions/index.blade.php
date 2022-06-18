@@ -12,11 +12,11 @@
 
                     <div class="d-flex align-items-center">
 
-                       <h2>All Questions</h2>
+                        <h2>All Questions</h2>
 
-                       <div class="ml-auto">
-                        <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">Ask Question</a>
-                       </div>
+                        <div class="ml-auto">
+                            <a href="{{ route('questions.create') }}" class="btn btn-outline-secondary">Ask Question</a>
+                        </div>
 
                     </div>
 
@@ -25,42 +25,50 @@
 
 
                 <div class="card-body">
-                   @foreach ($questions as $question)
+                    @foreach ($questions as $question)
 
-                   <div class="d-flex mb-3">
-                    <div class="flex-col counters">
-                        <div class="vote">
-                            <strong>{{ $question->votes }}</strong> {{ str_plural('vote',$question->votes) }}
+                    <div class="d-flex mb-3">
+                        <div class="flex-col counters">
+                            <div class="vote">
+                                <strong>{{ $question->votes }}</strong> {{ str_plural('vote',$question->votes) }}
+                            </div>
+                            <div class="status {{ $question->status }}">
+                                <strong>{{ $question->answers }}</strong> {{ str_plural('answer',$question->answers) }}
+                            </div>
+                            <div class="view">
+                                {{ $question->views . " " . str_plural('view',$question->views) }}
+                            </div>
                         </div>
-                        <div class="status {{ $question->status }}">
-                            <strong>{{ $question->answers }}</strong> {{ str_plural('answer',$question->answers) }}
-                        </div>
-                        <div class="view">
-                            {{ $question->views . " " . str_plural('view',$question->views) }}
-                        </div>
-                    </div>
                         <div class="media-body">
                             <div class="d-flex align-items-center">
-                                <h3 class="mb-2 font-bold text-lg text-blue-600"><a href="{{ $question->url }}">{{ $question->title }}</a></h3>
+                                <h3 class="mb-2 font-bold text-lg text-blue-600"><a href="{{ $question->url }}">{{
+                                        $question->title }}</a></h3>
                                 <div class="ml-auto">
-                                    <a href="{{ route('questions.edit',$question->id) }}" class="btn btn-sm btn-outline-info">Edit</a>
+                                    <a href="{{ route('questions.edit',$question->id) }}"
+                                        class="btn btn-sm btn-outline-info">Edit</a>
+                                    <form action="{{ route('questions.destroy',$question->id) }}" method="POST" class="form-delete">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('are you sure?')">Delete</button>
+                                    </form>
                                 </div>
 
                             </div>
 
-                        <p class="lead">
-                            Asked by
-                            <a href="{{ $question->user->url }}" class="text-blue-500">{{ $question->user->name }}</a>
-                            <small class="text-muted">{{ $question->created_date }}</small>
-                        </p>
-                        {{ str_limit($question->body, 250) }}
-                        <hr>
+                            <p class="lead">
+                                Asked by
+                                <a href="{{ $question->user->url }}" class="text-blue-500">{{ $question->user->name
+                                    }}</a>
+                                <small class="text-muted">{{ $question->created_date }}</small>
+                            </p>
+                            {{ str_limit($question->body, 250) }}
+                            <hr>
+                        </div>
                     </div>
-                   </div>
 
-                   @endforeach
+                    @endforeach
 
-                   <div class="flex justify-center">{{ $questions->links() }}</div>
+                    <div class="flex justify-center">{{ $questions->links() }}</div>
                 </div>
             </div>
         </div>
