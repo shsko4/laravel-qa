@@ -5,7 +5,7 @@ namespace App\Models;
 use Parsedown;
 use Illuminate\Support\Str;
 use PhpParser\Builder\Function_;
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
