@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Answer;
 use Faker\Factory;
 use App\Models\User;
 use App\Models\Question;
@@ -26,7 +27,9 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->times(3)->create()->each(function($u){
 
-            $u->questions()->saveMany(Question::factory()->times(rand(1,5))->make());
+            $u->questions()->saveMany(Question::factory()->times(rand(1,5))->make())->each(function($q){
+                $q->answers()->saveMany(Answer::factory()->times(rand(1,5))->make());
+            });
 
         });
         //Question::factory()->times(3)->create();
