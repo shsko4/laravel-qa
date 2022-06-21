@@ -25,13 +25,10 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::factory()->times(3)->create()->each(function($u){
-
-            $u->questions()->saveMany(Question::factory()->times(rand(1,5))->make())->each(function($q){
-                $q->answers()->saveMany(Answer::factory()->times(rand(1,5))->make());
-            });
-
-        });
+        $this->call([
+            UsersQuestionsAnswersTableSeeder::class,
+            FavoritesTableSeeder::class,
+        ]);
         //Question::factory()->times(3)->create();
     }
 }
