@@ -26,55 +26,21 @@
                     <hr>
 
                     <div class="d-flex mb-3">
-                        <div class="flex-col  vote-controls">
-                            <a href="" title="this question is useful" class="vote-up {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('up-vote-question-{{ $question->id }}').submit()">
-                                <i class="fas fa-caret-up fa-3x"></i>
-                            </a>
-                            <form action="/questions/{{ $question->id }}/vote"
-                                id="up-vote-question-{{ $question->id }}" style="display: none" method="post">
-                                @csrf
-                                <input type="hidden" name="vote" value="1">
-                            </form>
-                            <span class="votes-count">{{ $question->votes_count }}</span>
-                            <a href="" title="this question is not useful" class="vote-down {{ Auth::guest() ? 'off' : '' }}" onclick="event.preventDefault(); document.getElementById('down-vote-question-{{ $question->id }}').submit()">
-                                <i class="fas fa-caret-down fa-3x"></i>
-                            </a>
-                            <form action="/questions/{{ $question->id }}/vote"
-                                id="down-vote-question-{{ $question->id }}" style="display: none" method="post">
-                                @csrf
-                                <input type="hidden" name="vote" value="-1">
-                            </form>
-                            <a href="" title="click to mark as favorite Question (click again to undo)"
-                                class="favorite mt-2 {{ Auth::guest() ? 'off' : ($question->is_favorited ? 'favorited' : '') }}" onclick="event.preventDefault(); document.getElementById('favorite-question-{{ $question->id }}').submit()">
-                                <i class="fas fa-star fa-2x"></i>
-                                <span class="favorites-count">{{ $question->favorites_count }}</span>
-                            </a>
-                            <form action="/questions/{{ $question->id }}/favorites"
-                                id="favorite-question-{{ $question->id }}" style="display: none" method="post">
-                                @csrf
-                                @if ($question->is_favorited)
-                                    @method('DELETE')
-                                @endif
-                            </form>
-                        </div>
-                        <div class="media-body pt-4">
+                        @include('shared._vote',['model' => $question])
+                        <div class="card-body pt-4">
                             <div class="text-lg">
 
                                 {!! $question->body_html !!}
 
                             </div>
-
-                            <div class="float-right">
-                                <span class="text-muted text-sm">Asked {{ $question->created_date }}</span>
-                                <div class="flex">
-                                    <a href="{{ $question->user->url }}" class="pr-2">
-                                        <img src="{{ $question->user->avatar }}">
-                                    </a>
-                                    <div class="mb-1">
-                                        <a href="{{ $question->user->url }}">{{ $question->user->name }}</a>
-                                    </div>
+                            <div class="row mt-3">
+                                <div class="col-4"></div>
+                                <div class="col-4"></div>
+                                <div class="col-4">
+                                    @include('shared._author',['model' => $question,'label' => 'Asked' ])
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
