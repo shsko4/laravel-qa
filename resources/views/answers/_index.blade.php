@@ -22,10 +22,27 @@
                             <a href="" title="this answer is not useful" class="vote-down off">
                                 <i class="fas fa-caret-down fa-3x"></i>
                             </a>
-                            <a href="" title="Mark this answer as best answer" class="{{ $answer->status }} mt-2">
-                                <i class="fas fa-check fa-2x"></i>
-                                <span class="favorites-count">123</span>
-                            </a>
+                            @can('accept',$answer)
+                                <a href="" title="Mark this answer as best answer" class="{{ $answer->status }} mt-2"
+                                    onclick="event.preventDefault(); document.getElementById('answers.accept-{{ $answer->id }}').submit()">
+                                    <i class="fas fa-check fa-2x"></i>
+                                    <span class="favorites-count">123</span>
+                                </a>
+                                <form action="{{ route('answers.accept',$answer->id) }}"
+                                    id="answers.accept-{{ $answer->id }}" method="POST" style="display: none">
+                                    @csrf
+                                </form>
+                            @else
+                                @if ($answer->is_best)
+                                    <a href="" title="Question owner marked this answer as best answer" class="{{ $answer->status }} mt-2"
+                                        onclick="event.preventDefault();">
+                                        <i class="fas fa-check fa-2x"></i>
+                                        <span class="favorites-count">123</span>
+                                    </a>
+                                @endif
+                            @endcan
+
+
                         </div>
                         <div class="card-body mt-4">
                             {!! $answer->body_html !!}
@@ -37,8 +54,9 @@
                                             class="btn btn-sm btn-outline-info">Edit</a>
                                         @endcan
                                         @can('delete',$answer)
-                                        <form action="{{ route('questions.answers.destroy',[$question->id,$answer->id]) }}" method="POST"
-                                            class="form-delete">
+                                        <form
+                                            action="{{ route('questions.answers.destroy',[$question->id,$answer->id]) }}"
+                                            method="POST" class="form-delete">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-sm btn-outline-danger"
@@ -61,8 +79,8 @@
                                 </div>
                             </div>
 
-                       </div>
-                     <hr>
+                        </div>
+                        <hr>
 
                     </div>
                 </div>

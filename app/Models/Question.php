@@ -68,5 +68,20 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
+    public function acceptBestAnswer(Answer $answer)
+    {
+        if($this->best_answer_id === $answer->id){
+
+            $this->best_answer_id = NULL;
+            $this->save();
+
+        }else{
+
+            $this->best_answer_id = $answer->id;
+            $this->save();
+        }
+
+    }
+
 
 }
