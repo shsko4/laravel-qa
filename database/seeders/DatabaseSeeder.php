@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Answer;
 use Faker\Factory;
 use App\Models\User;
+use App\Models\Answer;
 use App\Models\Question;
 use Illuminate\Database\Seeder;
+use Database\Seeders\VotablesTableSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class DatabaseSeeder extends Seeder
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersQuestionsAnswersTableSeeder::class,
             FavoritesTableSeeder::class,
+            VotablesTableSeeder::class,
         ]);
         //Question::factory()->times(3)->create();
     }
