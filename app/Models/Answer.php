@@ -2,15 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\votableTrait;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Null_;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Answer extends Model
 {
     use HasFactory;
 
     protected $fillable = ['body','user_id'];
+
+    use votableTrait;
 
     public function question()
     {
@@ -64,20 +67,5 @@ public function isBest()
 {
     return $this->id === $this->question->best_answer_id;
 }
-
-public function votes()
-    {
-        return $this->morphToMany(User::class,'votable')->withTimestamps();
-    }
-
-    public function downVotes()
-    {
-        return $this->votes()->wherePivot('vote',-1);
-    }
-
-    public function upVotes()
-    {
-        return $this->votes()->wherePivot('vote',1);
-    }
 
 }

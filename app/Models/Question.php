@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Parsedown;
-use Illuminate\Support\Str;
-use PhpParser\Builder\Function_;
 use App\Models\User;
+use Illuminate\Support\Str;
+use App\Models\votableTrait;
+use PhpParser\Builder\Function_;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -14,6 +15,8 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = ['title','body'];
+
+    use votableTrait;
 
     public function user(){
 
@@ -101,21 +104,6 @@ class Question extends Model
     public function getfavoritesCountAttribute()
     {
         return $this->favorites->count();
-    }
-
-    public function votes()
-    {
-        return $this->morphToMany(User::class,'votable')->withTimestamps();
-    }
-
-    public function downVotes()
-    {
-        return $this->votes()->wherePivot('vote',-1);
-    }
-
-    public function upVotes()
-    {
-        return $this->votes()->wherePivot('vote',1);
     }
 
 
