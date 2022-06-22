@@ -30,7 +30,7 @@
                         <div class="card-body pt-4">
                             <div class="text-lg">
 
-                                {!! $question->body_html !!}
+                                {!! $question->excerpt !!}
 
                             </div>
                             <div class="row mt-3">

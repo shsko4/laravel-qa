@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\votableTrait;
+use Mews\Purifier\Facades\Purifier;
 use Illuminate\Database\Eloquent\Model;
 use phpDocumentor\Reflection\Types\Null_;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -27,7 +28,7 @@ class Answer extends Model
 
     public function getBodyHtmlAttribute()
     {
-        return \Parsedown::instance()->text($this->body);
+        return Purifier::clean(\Parsedown::instance()->text($this->body));
 
     }
 

@@ -12,6 +12,7 @@
         "laravel/helpers": "^1.5",
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
+        "mews/purifier": "^3.3",
         "parsedown/laravel": "^1.2"
     },
     "require-dev": {

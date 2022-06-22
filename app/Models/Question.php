@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use purifier;
 use Parsedown;
 use App\Models\User;
 use Illuminate\Support\Str;
@@ -62,7 +63,7 @@ class Question extends Model
 
     public function getBodyHtmlAttribute()
     {
-        return \Parsedown::instance()->text($this->body);
+        return purifier::clean($this->bodyHtml());
 
     }
 
@@ -104,6 +105,21 @@ class Question extends Model
     public function getfavoritesCountAttribute()
     {
         return $this->favorites->count();
+    }
+
+    public function getExcerptAttribute()
+    {
+        return $this->excerpt(250); ;
+    }
+
+    private function bodyHtml()
+    {
+        return \Parsedown::instance()->text($this->body);
+    }
+
+    public function excerpt($limit)
+    {
+        return str_limit(strip_tags($this->bodyHtml()), $limit);
     }
 
 
