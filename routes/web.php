@@ -20,9 +20,7 @@ use App\Http\Controllers\VoteQuestionController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',[QuestionsController::class,'index'])->name('index');
 
 Auth::routes();
 

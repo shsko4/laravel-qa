@@ -25,7 +25,7 @@
 
 
                 <div class="card-body">
-                    @foreach ($questions as $question)
+                    @forelse ($questions as $question)
 
                     <div class="d-flex mb-3">
                         <div class="flex-col counters">
@@ -72,8 +72,11 @@
                             <hr>
                         </div>
                     </div>
-
-                    @endforeach
+                    @empty
+                        <div class="alert alert-warning">
+                            <strong>Sorry there is no Questions to show yet!</strong>
+                        </div>
+                    @endforelse
 
                     <div class="flex justify-center">{{ $questions->links() }}</div>
                 </div>

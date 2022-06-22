@@ -21,7 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('views')->default(0);
             $table->unsignedInteger('answers')->default(0);
             $table->integer('votes')->default(0);
-            $table->unsignedBigInteger('best_answer_id')->nullable;
+            $table->unsignedBigInteger('best_answer_id')->nullable()->default(null);
             $table->unsignedBigInteger('user_id');
             $table->timestamps();
 

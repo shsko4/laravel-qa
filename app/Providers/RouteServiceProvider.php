@@ -19,6 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     public const HOME = '/home';
+    public const INDEX = '/questions';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.
@@ -41,6 +42,9 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('slug',function($slug){
 
             $question = Question::with('answers.user')->where('slug',$slug)->first();
+
+            //$question = Question::with(['answers.user','answers' => function($query){
+              //  $query->orderBy('votes_count','DESC');
 
             return $question ? $question : abort(404);
             //return Question::where('slug',$slug)->first() ?? abort(404);
